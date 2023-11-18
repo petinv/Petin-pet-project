@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        .btn-dark {
+            background-color: #343a40;
+            color: #fff;
+            padding: 40px 60px;
+            border: none;
+            text-decoration: none;
+            font-size: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-dark:hover {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 2);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 2);
+        }
+
+        .btn-dark img {
+            margin-right: 25px;
+            vertical-align: middle;
+        }
+    </style>
+
+    <title>Главная страница</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+<div class="container text-center">
+    <h1 class="display-5 mt-5">Добро пожаловать на мой Pet-проект!</h1>
+    <br>
+    <p class="lead">Это веб-приложение, разработанное на Java, работающее на бесплатном сервере Oracle Cloud. Я создал
+        собственный сервер и постарался сделать этот сайт полноценным проектом, доступным всегда.</p>
+    <p class="lead">Особенности моего проекта включают в себя возможность просмотра, добавления и изменения данных в
+        таблице из базы данных SQL. Я хочу подчеркнуть, что не претендую на идеальное формирование кода, и этот
+        проект создан в первую очередь для обучения и экспериментов.</p>
+    <p class="lead">Я готов рассмотреть возможности сотрудничества и попытки применения этих навыков на практике. Моя
+        цель - попасть в команду профессионалов и обучаться вместе с опытными специалистами. Мой проект - это
+        лишь начало моего пути, и я горячо желаю развивать свои навыки и знания, работая в структурированной и
+        опытной команде.</p>
+    <br>
+
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#spoiler" aria-expanded="false"
+            aria-controls="spoiler">
+        Подробнее о проделанной работе
+    </button>
+    <br>
+    <br>
+
+    <div class="collapse mt-2" id="spoiler">
+        <div class="container-fluid">
+            <div class="alert alert-info text-left">
+                <strong>Виртуальная машина:</strong>
+                <ul>
+                    <li>Развернута виртуальная машина Ubuntu Server на Oracle Cloud.</li>
+                    <li>Осуществлена начальная конфигурация с установкой Java и настройкой firewall.</li>
+                    <li>Реализован проброс портов через Nginx.</li>
+                    <li>Настроен автоматический запуск приложения в качестве службы.</li>
+                </ul>
+                <br>
+                <strong>База данных:</strong>
+                <ul>
+                    <li>Настроен доступ к SQL базе данных через Java.</li>
+                    <li>Реализован вывод данных из таблицы.</li>
+                    <li>Добавлена функциональность управления данными: добавление, изменение, удаление строк как вручную, так и через файлы JSON.</li>
+                </ul>
+                <br>
+                <strong>Форма обратной связи:</strong>
+                <ul>
+                    <li>Создана удобная форма обратной связи для отправки сообщений на мою почту.</li>
+                </ul>
+                <br>
+                <strong>Форма простых вычислений:</strong>
+                <ul>
+                    <li>Добавлена форма для работы с массивами (создание, генерация, сортировка).</li>
+                    <li>Внедрен функционал просчета стоимости скидки и доставки с учетом общей суммы.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <br>
+    <!-- Ссылка на GitHub -->
+    <a href="https://github.com/petinv/Petin-pet-project" target="_blank" class="btn btn-dark">
+        <img src="https://avatars.githubusercontent.com/u/77337497?v=4" alt="GitHub" width="20" height="20">
+        Мой проект на GitHub
+    </a>
+
+</div>
+<br>
+<br>
+<!-- Подключение Bootstrap JavaScript и jQuery (обязательно для некоторых компонентов Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+

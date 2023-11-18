@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Client List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container {
+            margin-top: 30px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-success {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        .btn-info {
+            background-color: #17a2b8;
+            color: #fff;
+            border: none;
+        }
+        .btn-info:hover {
+            background-color: #138496;
+        }
+        .panel-body {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .table th {
+            background-color: #f0f0f0;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="col-md-10">
+        <h2>
+            <a href="/" class="btn btn-primary">Домой</a>
+            Client List
+        </h2>
+        <hr/>
+        <div class="d-flex justify-content-between">
+            <a href="showForm" class="btn btn-primary">Add Client</a>
+            <a href="exportJson" class="btn btn-success">Export JSON</a>
+        </div>
+
+        <!-- Перемещенная форма Import JSON -->
+
+        <form action="importJson" method="post" enctype="multipart/form-data">
+            <div class="d-flex justify-content-end">
+                <div class="form-group">
+                    <label for="jsonFile">Upload JSON File:</label>
+                    <input type="file" id="jsonFile" name="jsonFile" accept=".json">
+                </div>
+                <button type="submit" class="btn btn-info mt-2">Import JSON</button>
+            </div>
+        </form>
+        <br>
+        <div class="panel-body">
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th class="text-center">First name</th>
+                    <th class="text-center">Last name</th>
+                    <th class="text-center">Phone</th>
+                    <th class="text-center" style="width: 200px;">Action</th>
+                </tr>
+                <tr th:each="tempClient : ${clients}">
+                    <td class="text-center" th:text="${tempClient.firstName}">First name</td>
+                    <td class="text-center" th:text="${tempClient.lastName}">Last name</td>
+                    <td class="text-center" th:text="${tempClient.phone}">Phone</td>
+                    <td class="text-center">
+                        <a class="btn btn-warning"
+                           th:href="'/clients/updateForm?clientId=' + ${tempClient.id}">Update</a>
+                        <a class="btn btn-danger" th:href="'/clients/deleteLink/' + ${tempClient.id}"
+                           th:onclick="'if (!(confirm('Are you sure to delete?'))) return false'">Delete</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

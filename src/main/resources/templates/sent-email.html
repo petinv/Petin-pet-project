@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Отправка Email</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+            .container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 90vh;
+            }
+            .result-box {
+                border: 2px solid #3498db;
+                padding: 10px;
+                background-color: #f5f5f5;
+                margin-top: 10px;
+                border-radius: 5px;
+                text-align: center;
+            }
+
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h3 class="mt-5">Отправить Email мне на почту</h3>
+
+    <form id="email-form" action="/send-email" method="post" class="mt-3">
+
+        <!--        Возможность ввода почты для отправки-->
+        <!--        <div class="form-group">-->
+        <!--            <input type="email" name="recipient" placeholder="Получатель" class="form-control" required>-->
+        <!--        </div>-->
+
+        <div class="form-group" style="display: none;">
+            <input type="email" name="recipient" value="petinv@i.ua" class="form-control" required>
+        </div>
+
+
+        <div class="form-group">
+            <input type="text" name="subject" placeholder="Тема" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <textarea name="message" placeholder="Сообщение" class="form-control" style="resize: both;"
+                      required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Отправить Email</button>
+    </form>
+
+
+    <div class="mt-3 result-box" style="display: none;">
+        <!-- Вывод результата -->
+        <p id="result-text"></p>
+    </div>
+</div>
+
+<!-- Подключение Bootstrap JavaScript и jQuery (обязательно для некоторых компонентов Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $("#email-form").submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/send-email",
+                data: $("#email-form").serialize(),
+                success: function(response) {
+                    // Вывести сообщение об успешной отправке
+                    $("#result-text").html(response);
+                    $(".result-box").show(); // Показать блок с результатом
+                },
+                error: function(xhr, status, error) {
+                    // Вывести сообщение об ошибке
+                    $("#result-text").text(xhr.responseText);
+                    $(".result-box").show(); // Показать блок с результатом
+                }
+            });
+        });
+    });
+
+
+</script>
+</body>
+</html>
+

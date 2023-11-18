@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Массивы</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            justify-content: center;
+            height: 90vh;
+        }
+        .result-box {
+            border: 2px solid #3498db;
+            padding: 10px;
+            background-color: #f5f5f5;
+            margin-top: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">Работа с массивами</h1>
+
+    <form th:action="@{/generateArray}" method="get" class="mt-3">
+        <div class="form-group">
+            <input type="number" name="arrayLength" placeholder="Длина массива" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Сгенерировать массив указанной длины</button>
+    </form>
+
+    <form th:action="@{/generateRandomArray}" method="get" class="mt-3">
+        <button type="submit" class="btn btn-primary btn-block">Сгенерировать случайный массив</button>
+    </form>
+
+    <form th:action="@{/sortArray}" method="get" class="mt-3">
+        <button type="submit" class="btn btn-primary btn-block">Отсортировать массив по возрастанию</button>
+    </form>
+
+    <form th:action="@{/reversSortedArray}" method="get" class="mt-3">
+        <button type="submit" class="btn btn-primary btn-block">Отсортировать массив по убыванию</button>
+    </form>
+
+    <form th:action="@{/minAndMaxArr}" method="get" class="mt-3">
+        <button type="submit" class="btn btn-primary btn-block">Вывести минимальное и максимальное значение</button>
+    </form>
+
+
+    <div class="mt-3 result-box">
+
+        <!-- Вывод результата -->
+        <p th:if="${result}" th:text="${result}"></p>
+    </div>
+</div>
+
+<!-- Подключение Bootstrap JavaScript и jQuery (обязательно для некоторых компонентов Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
