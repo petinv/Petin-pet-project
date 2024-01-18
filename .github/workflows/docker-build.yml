@@ -1,0 +1,71 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+
+      - name: Build with Maven
+        run: mvn clean install
+
+      - name: Build Docker image
+        run: docker build -t docker.pkg.github.com/${{ github.repository }}/my-pet-project .
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
+      - name: Push Docker image
+        run: docker push docker.pkg.github.com/${{ github.repository }}/my-pet-project:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    needs: build
+
+    steps:
+      - name: Create SSH directory
+        run: mkdir -p ~/.ssh
+
+      - name: Copy SSH key
+        run: echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to Ubuntu Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USERNAME }}
+          key: |
+            ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Остановить и удалить предыдущий контейнер, если он был запущен
+            docker stop my-pet-project || true
+            docker rm my-pet-project || true
+            
+            # Удалить предыдущий образ, если он существует
+            docker rmi docker.pkg.github.com/petinv/my-pet-project/my-pet-project:latest || true
+            
+            # Подтянуть свежий образ
+            docker pull docker.pkg.github.com/petinv/my-pet-project/my-pet-project:latest || true
+
+
+            # Аутентификация в GitHub Container Registry
+            echo "${{ secrets.DOCKER_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
+            # Загрузить и запустить новый контейнер
+            docker run -d --name my-pet-project -p 80:8080 --restart always docker.pkg.github.com/petinv/my-pet-project/my-pet-project:latest
